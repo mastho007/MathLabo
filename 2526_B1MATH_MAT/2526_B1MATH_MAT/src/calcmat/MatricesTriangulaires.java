@@ -13,13 +13,13 @@ public class MatricesTriangulaires {
 	 */
 	
 	// Matrice 10x10 triangulaire supérieure de 1
-	private static final Matrix mTriangleSup = null; // TODO
+	private static final Matrix mTriangleSup = new Matrix(10, 1, 1, Matrix.UPPER_TRIANGLE);
 
 	// Matrice 10x10 diagonale de 1 (= matrice unité)
-	private static final Matrix mIdentite = null; // TODO
+	private static final Matrix mIdentite = new Matrix(10, 1, 1, Matrix.DIAGONAL);
 
 	// Matrice 10x10 de 1
-	private static final Matrix mUns = null; // TODO
+	private static final Matrix mUns = new Matrix(10, 10, 1);
 
 	/**
 	 * Programme principal à compléter en fonction de l'énoncé.
@@ -32,31 +32,40 @@ public class MatricesTriangulaires {
 		// 1. mTriangleSup x mIdentite -> neutre
 		System.out.println("1. mTriangleSup x mIdentite -> neutre\n");
 
-		// TODO
+		mTriangleSup.mult(mIdentite).print(2);
+		
+		
 
 		// 2. mUns x mTriangleSup -> valeurs croissantes en colonnes 
 		System.out.println("2. mUns x mTriangleSup -> valeurs croissantes en colonnes\n");
 
-		// TODO
+		mUns.mult(mTriangleSup).print(2);
 		
 		// 3. mTriangleSup x mTriangleSup -> diagonales supérieures croissantes
 		System.out.println("3. mTriangleSup x mTriangleSup -> diagonales supérieures croissantes\n");
 
-		// TODO
+		mTriangleSup.mult(mTriangleSup).print(2);
 		
 		// 4. Matrice triangulaire inférieure de 1
 		System.out.println("4. Matrice triangulaire inférieure de 1\n");
 
-		// TODO
+		mTriangleSup.transpose().print(2);
 		
 		// 5. Matrice carrée de valeurs décroissantes de 10 à 1 en colonnes 
 		System.out.println("5. Matrice carrée de valeurs décroissantes de 10 à 1 en colonnes\n");
 
-		// TODO
+		mUns.mult(mTriangleSup.transpose()).print(2);
 		
 		// 6. Matrice carrée avec diagonales symétriques et croissantes
 		System.out.println("6. Matrice carrée avec diagonales symétriques et croissantes\n");
-
-		// TODO
+	    
+		//on reprend le resulat du 3 et on ajoute ça transposée
+		mTriangleSup.mult(mTriangleSup).add(mTriangleSup.mult(mTriangleSup).transpose()).sub(mIdentite).print(2);;
+		
 	}
 }
+
+
+
+
+

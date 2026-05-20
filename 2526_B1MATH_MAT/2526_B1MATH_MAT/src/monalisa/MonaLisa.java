@@ -44,29 +44,71 @@ public class MonaLisa {
 		System.out.println("Incrustation de Mona Lisa sur la plage...");
 
 		// 1. Détourage de la zone d'incrustation
-
-		// TODO
+		Matrix masqueNoire = mPlage.and(mMasqueMonaLisa);
+		Utils.displayMatrix(masqueNoire, "Plage + Negga");
 
 		// 2. Détourage de Mona Lisa
-
-		// TODO
+		Matrix masqueinverse = mMasqueMonaLisa.not();
+		
+		Matrix jocondeEtMasqueInverse = mMonaLisa.and(masqueinverse);
+				
+		Utils.displayMatrix(jocondeEtMasqueInverse, "joconde + masque");
+		
 
 		// 3. Incrustation de Mona Lisa sur la plage
-
-		// TODO
+		Matrix JocondePlage = masqueNoire.or(jocondeEtMasqueInverse);
+		
+		Utils.displayMatrix(JocondePlage, "joconde + plage");
 		
 		/*
 		 * Inscrutation des lunettes
 		 */
 		System.out.println("Incrustation des lunettes roses...");
 
-		// TODO
+		//On créé un grand masque noir 
+		Matrix grandMasqueNoir = masqueNoire.and(0);
+		Utils.displayMatrix(grandMasqueNoir, "Grand masque noir.");
+		
+		Matrix lunetteBlanche = grandMasqueNoir.insertIntoThis(65, 205, mLunettes.flipVertical().transpose().not());
+		
+		Utils.displayMatrix(lunetteBlanche, "Grand masque noir + lunette.");
+		
+		//on affiche joconde+plage+lunetteNoire
+		Matrix JocondePlusLunetteNoire = JocondePlage.add(lunetteBlanche);
+
+		Utils.displayMatrix(JocondePlusLunetteNoire, "Grand masque noir + lunette.");
+
+		//on affiche masqueNoir + lunetteRose
+		
+		Matrix lunetteRose = lunetteBlanche.and(0xFF00FF);
+		
+		Utils.displayMatrix(lunetteRose, "Lunette Rose.");
+
+		//on affiche joconde+plage+lunetteRose
+		Matrix imageFinale = JocondePlusLunetteNoire.or(lunetteRose);
+		
+		Utils.displayMatrix(imageFinale, "ImageFinale.");
+
+		
+		
+		
+		// *Colorez le masque d’incrustation en rose (rose = 0xFF00FF) et incrustez-le pour obtenir l’image finale
 		
 		/*
+		 * 
 		 * EXERCICE OPTIONNEL : lunettes en dégradé de rose
 		 */
 		System.out.println("Incrustation des lunettes en dégradé de roses...");
 
-		// TODO - Facultatif
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
