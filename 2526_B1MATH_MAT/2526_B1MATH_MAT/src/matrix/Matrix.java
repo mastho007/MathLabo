@@ -4,38 +4,38 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * La classe Matrix permet de représenter et de manipuler des matrices
- * de nombres entiers.
+ * La classe Matrix permet de représenter et de manipuler des matrices de
+ * nombres entiers.
  * 
  * @author François Schumacker
  */
 public class Matrix {
 
-    // ------------------------------------------------------------------------
-    //  Constantes de classe - Types de matrices carrées
-    // ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
+	// Constantes de classe - Types de matrices carrées
+	// ------------------------------------------------------------------------
 
 	public static final short SQUARE = 0;
-    public static final short LOWER_TRIANGLE = 1;
-    public static final short UPPER_TRIANGLE = 2;
-    public static final short DIAGONAL = 3;
-    
-    // ------------------------------------------------------------------------
-    //  Variable d'instance
-    // ------------------------------------------------------------------------
-    
-    private int[][] data; // Contient les données de la matrice
+	public static final short LOWER_TRIANGLE = 1;
+	public static final short UPPER_TRIANGLE = 2;
+	public static final short DIAGONAL = 3;
 
-    // ------------------------------------------------------------------------
-    //  Constructeurs
-    // ------------------------------------------------------------------------
-    
-    /**
-     * Crée une matrice nulle de taille numRows x numCols
-     *
-     * @param numRows Nombre de lignes
-     * @param numCols Nombre de colonnes
-     */
+	// ------------------------------------------------------------------------
+	// Variable d'instance
+	// ------------------------------------------------------------------------
+
+	private int[][] data; // Contient les données de la matrice
+
+	// ------------------------------------------------------------------------
+	// Constructeurs
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Crée une matrice nulle de taille numRows x numCols
+	 *
+	 * @param numRows Nombre de lignes
+	 * @param numCols Nombre de colonnes
+	 */
 	public Matrix(int numRows, int numCols) {
 		if (numRows <= 0) {
 			throw new IllegalArgumentException("Le nombre de lignes doit être strictement positif");
@@ -46,11 +46,11 @@ public class Matrix {
 		this.data = new int[numRows][numCols];
 	}
 
-    /**
-     * Crée une matrice à partir du tableau de int fourni en argument
-     *
-     * @param data Tableau contenant les données de la matrice
-     */
+	/**
+	 * Crée une matrice à partir du tableau de int fourni en argument
+	 *
+	 * @param data Tableau contenant les données de la matrice
+	 */
 	public Matrix(int[][] data) {
 		this(data.length, data[0].length); // Appel au constructeur Matrix(int numRows, int numCols)
 		for (int i = 0; i < data.length; i++) {
@@ -63,17 +63,17 @@ public class Matrix {
 		}
 	}
 
-    /**
-     * Crée une matrice de taille numRows x numCols remplie avec value
-     *
-     * @param numRows Nombre de lignes
-     * @param numCols Nombre de colonnes
-     * @param value Valeur à attribuer à toutes les cases de la matrice
-     */
+	/**
+	 * Crée une matrice de taille numRows x numCols remplie avec value
+	 *
+	 * @param numRows Nombre de lignes
+	 * @param numCols Nombre de colonnes
+	 * @param value   Valeur à attribuer à toutes les cases de la matrice
+	 */
 	public Matrix(int numRows, int numCols, int value) {
-		//on créé le tableau 2D int 
+		// on créé le tableau 2D int
 		this(numRows, numCols);
-		
+
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
 				this.set(i, j, value);
@@ -81,24 +81,24 @@ public class Matrix {
 		}
 	}
 
-    /**
-     * Crée une matrice qui est une copie de celle fournie en argument
-     *
-     * @param mat La matrice à dupliquer
-     */
-    public Matrix(Matrix mat) {
-        this(mat.data); // Appel au constructeur Matrix(int[][] data)
-    }
+	/**
+	 * Crée une matrice qui est une copie de celle fournie en argument
+	 *
+	 * @param mat La matrice à dupliquer
+	 */
+	public Matrix(Matrix mat) {
+		this(mat.data); // Appel au constructeur Matrix(int[][] data)
+	}
 
-    /**
-     * Crée une matrice de taille numRows x numCols remplie de nombres aléatoires
-     *
-     * @param numRows Nombre de lignes
-     * @param numCols Nombre de colonnes
-     * @param minValue Valeur aléatoire minimum
-     * @param maxValue Valeur aléatoire maximum
-     * @return Matrice aléatoire
-     */
+	/**
+	 * Crée une matrice de taille numRows x numCols remplie de nombres aléatoires
+	 *
+	 * @param numRows  Nombre de lignes
+	 * @param numCols  Nombre de colonnes
+	 * @param minValue Valeur aléatoire minimum
+	 * @param maxValue Valeur aléatoire maximum
+	 * @return Matrice aléatoire
+	 */
 	public Matrix(int numRows, int numCols, int minValue, int maxValue) {
 		this(numRows, numCols); // Appel au constructeur Matrix(int numRows, int numCols)
 		if (minValue > maxValue) {
@@ -113,16 +113,16 @@ public class Matrix {
 		}
 	}
 
-    /**
-     * Crée une matrice carrée d'un type donné, remplie de nombres aléatoires 
-     *
-     * @param size Taille de la matrice carrée
-     * @param minValue Valeur aléatoire minimum
-     * @param maxValue Valeur aléatoire maximum
-     * @param type Type de la matrice à créer
-     * @return Matrice carrée aléatoire du type choisi
-     */
-    public Matrix(int size, int minValue, int maxValue, short type) {
+	/**
+	 * Crée une matrice carrée d'un type donné, remplie de nombres aléatoires
+	 *
+	 * @param size     Taille de la matrice carrée
+	 * @param minValue Valeur aléatoire minimum
+	 * @param maxValue Valeur aléatoire maximum
+	 * @param type     Type de la matrice à créer
+	 * @return Matrice carrée aléatoire du type choisi
+	 */
+	public Matrix(int size, int minValue, int maxValue, short type) {
 		this(size, size); // Appel au constructeur Matrix(int numRows, int numCols)
 		if (minValue > maxValue) {
 			throw new IllegalArgumentException("La borne minimale est supérieure à la borne maximale !");
@@ -144,69 +144,85 @@ public class Matrix {
 				}
 			}
 			break;
-		// TODO - UPPER_TRIANGLE + DIAGONAL
-    	default:
-    		throw new IllegalArgumentException("Type de matrice inconnu");
-        }
-    }
+		case UPPER_TRIANGLE:
+			for (int i = 0; i < size; i++) {
+				for (int j = i; j < size; j++) {
+					this.set(i, j, rnd.nextInt(maxValue - minValue + 1) + minValue);
+				}
+			}
 
-    // ------------------------------------------------------------------------
-    //  Accesseurs et mutateurs
-    // ------------------------------------------------------------------------
-    
-    /**
-     * Renvoie le nombre de lignes de la matrice
-     *
-     * @return Nombre de lignes
-     */
-    public int getNumRows() {
-        return this.data.length;
-    }
+			break;
 
-    /**
-     * Renvoie le nombre de colonnes de la matrice
-     *
-     * @return Nombre de colonnes
-     */
-    public int getNumCols() {
-        return this.data[0].length;
-    }
+		case DIAGONAL:
+			for (int i = 0; i < size; i++) {
 
-    /**
-     * Renvoie la valeur stockée dans la case (row, col)
-     *
-     * @param row Numéro de ligne
-     * @param col Numéro de colonne
-     * @return Valeur stockée
-     */
-    public int get(int row, int col) {
-        return this.data[row][col];
-    }
+				this.set(i, i, rnd.nextInt(maxValue - minValue + 1) + minValue);
+			}
 
-    /**
-     * Stocke une valeur dans la case (row, col)
-     *
-     * @param row Numéro de ligne
-     * @param col Numéro de colonne
-     * @param value Valeur à stocker
-     */
-    public void set(int row, int col, int value) {
-        this.data[row][col] = value;
-    }
+			break;
 
-    // ------------------------------------------------------------------------
-    //  Méthodes de test
-    // ------------------------------------------------------------------------
+		default:
+			throw new IllegalArgumentException("Type de matrice inconnu");
+		}
+	}
 
-    /**
-     * Teste si la matrice est égale à celle fournie en paramètre
-     * 
-     * @param mat   Matrice
-     * @return true si les matrices sont égales
-     */
-    public boolean equals(Matrix mat) {
-        return Arrays.deepEquals(this.data, mat.data);
-        // Solution alternative
+	// ------------------------------------------------------------------------
+	// Accesseurs et mutateurs
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Renvoie le nombre de lignes de la matrice
+	 *
+	 * @return Nombre de lignes
+	 */
+	public int getNumRows() {
+		return this.data.length;
+	}
+
+	/**
+	 * Renvoie le nombre de colonnes de la matrice
+	 *
+	 * @return Nombre de colonnes
+	 */
+	public int getNumCols() {
+		return this.data[0].length;
+	}
+
+	/**
+	 * Renvoie la valeur stockée dans la case (row, col)
+	 *
+	 * @param row Numéro de ligne
+	 * @param col Numéro de colonne
+	 * @return Valeur stockée
+	 */
+	public int get(int row, int col) {
+		return this.data[row][col];
+	}
+
+	/**
+	 * Stocke une valeur dans la case (row, col)
+	 *
+	 * @param row   Numéro de ligne
+	 * @param col   Numéro de colonne
+	 * @param value Valeur à stocker
+	 */
+	public void set(int row, int col, int value) {
+		this.data[row][col] = value;
+	}
+
+	// ------------------------------------------------------------------------
+	// Méthodes de test
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Teste si la matrice est égale à celle fournie en paramètre
+	 * 
+	 * @param mat Matrice
+	 * @return true si les matrices sont égales
+	 */
+	public boolean equals(Matrix mat) {
+		return Arrays.deepEquals(this.data, mat.data);
+		// Solution alternative
 //        if (!this.hasSameSize(mat)) return false;
 //        for (int i = 0; i < this.getNumRows(); i++) {
 //            for (int j = i; j < this.getNumCols(); j++) {
@@ -214,116 +230,132 @@ public class Matrix {
 //            }
 //        }
 //        return true;
-    }
+	}
 
-    /**
-     * Teste si la matrice a la même taille que celle fournie en paramètre
-     * 
-     * @param mat   Matrice
-     * @return true si les matrices ont la même taille
-     */
-    public boolean hasSameSize(Matrix mat) {
-        return (this.getNumRows() == mat.getNumRows() &&
-                this.getNumCols() == mat.getNumCols());
-    }
-    
-    /**
-     * Teste si la matrice est carrée
-     * 
-     * @return true si la matrice est carrée
-     */
-    public boolean isSquare() {
-        return (this.getNumRows() == this.getNumCols());
-    }
+	/**
+	 * Teste si la matrice a la même taille que celle fournie en paramètre
+	 * 
+	 * @param mat Matrice
+	 * @return true si les matrices ont la même taille
+	 */
+	public boolean hasSameSize(Matrix mat) {
+		return (this.getNumRows() == mat.getNumRows() && this.getNumCols() == mat.getNumCols());
+	}
 
-    /**
-     * Teste si la matrice est une matrice diagonale
-     * 
-     * @return true si la matrice est une matrice diagonale
-     */
-    public boolean isDiagonal() {
-        if (!this.isSquare()) return false;
-        for (int i = 0; i < this.getNumRows(); i++) {
-            for (int j = 0; j < this.getNumCols(); j++) {
-                if (i != j && this.get(i, j) != 0) return false;
-            }
-        }
-        return true;
-    }
+	/**
+	 * Teste si la matrice est carrée
+	 * 
+	 * @return true si la matrice est carrée
+	 */
+	public boolean isSquare() {
+		return (this.getNumRows() == this.getNumCols());
+	}
 
-    /**
-     * Teste si la matrice est triangulaire
-     * 
-     * @return true si la matrice est triangulaire
-     */
-    public boolean isTriangle() {
-		// TODO
-        return false; // <- à modifier !!!
-    }
+	/**
+	 * Teste si la matrice est une matrice diagonale
+	 * 
+	 * @return true si la matrice est une matrice diagonale
+	 */
+	public boolean isDiagonal() {
+		if (!this.isSquare())
+			return false;
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				if (i != j && this.get(i, j) != 0)
+					return false;
+			}
+		}
+		return true;
+	}
 
-    /**
-     * Teste si la matrice est triangulaire inférieure<br>
-     * Note: les cases au-dessus de la diagonale sont nulles
-     * 
-     * @return true si la matrice est triangulaire inférieure
-     */
-    public boolean isLowerTriangle() {
-		// TODO
-        return false; // <- à modifier !!!
-    }
+	/**
+	 * Teste si la matrice est triangulaire
+	 * 
+	 * @return true si la matrice est triangulaire
+	 */
+	public boolean isTriangle() {
+		// on teste si est triangulaire haute ou basse ?
+		if (this.isUpperTriangle() || this.isLowerTriangle()) {
+			return true;
+		}
 
-    /**
-     * Teste si la matrice est triangulaire supérieure<br>
-     * Note: les cases en-dessous de la diagonale sont nulles
-     * 
-     * @return true si la matrice est triangulaire supérieure
-     */
-    public boolean isUpperTriangle() {
-        if (!this.isSquare()) return false;
-        for (int i = 1; i < this.getNumRows(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (this.get(i, j) != 0) return false;
-            }
-        }
-        return true;
-    }
+		return false;
+	}
 
-    // ------------------------------------------------------------------------
-    //  Opérations sur les matrices
-    // ------------------------------------------------------------------------
+	/**
+	 * Teste si la matrice est triangulaire inférieure<br>
+	 * Note: les cases au-dessus de la diagonale sont nulles
+	 * 
+	 * @return true si la matrice est triangulaire inférieure
+	 */
+	public boolean isLowerTriangle() {
 
-    /**
-     * Addition de deux matrices<br>
-     *   R = THIS + M<br>
-     *   r(i, j) = this(i, j) + m(i,j)
-     *   
-     * @param m Matrice à ajouter à THIS
-     * @return  Matrice de résultat R
-     */
-    public Matrix add(Matrix m) {
-        // On vérifie que les 2 matrices ont la même taille
-        if (!this.hasSameSize(m)) {
-            throw new IllegalArgumentException("Les matrices doivent avoir la même taille !");
-        }
-        // Création de la matrice de résultat
-        Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
-        // Addition des 2 matrices
-        for (int i = 0; i < this.getNumRows(); i++) {
-            for (int j = 0; j < this.getNumCols(); j++) {
-                r.set(i, j, this.get(i, j) + m.get(i, j));
-            }
-        }
-        return r;
-    }
+		if (!this.isSquare())
+			return false;
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = i + 1; j < this.getNumCols(); j++) {
+				if (this.get(i, j) != 0)
+					return false;
+			}
+		}
+		return true;
 
-    /**
-     * ET logique de deux matrices<br>
-     *   R = THIS AND M<br>
-     *   r(i, j) = this(i, j) & m(i, j)
-     *   
-     * @param m Matrice dont on veut faire le ET logique avec THIS
-     * @return  Matrice de résultat R
-     */
+	}
+
+	/**
+	 * Teste si la matrice est triangulaire supérieure<br>
+	 * Note: les cases en-dessous de la diagonale sont nulles
+	 * 
+	 * @return true si la matrice est triangulaire supérieure
+	 */
+	public boolean isUpperTriangle() {
+		if (!this.isSquare())
+			return false;
+		for (int i = 1; i < this.getNumRows(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (this.get(i, j) != 0)
+					return false;
+			}
+		}
+		return true;
+	}
+
+	// ------------------------------------------------------------------------
+	// Opérations sur les matrices
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Addition de deux matrices<br>
+	 * R = THIS + M<br>
+	 * r(i, j) = this(i, j) + m(i,j)
+	 * 
+	 * @param m Matrice à ajouter à THIS
+	 * @return Matrice de résultat R
+	 */
+	public Matrix add(Matrix m) {
+		// On vérifie que les 2 matrices ont la même taille
+		if (!this.hasSameSize(m)) {
+			throw new IllegalArgumentException("Les matrices doivent avoir la même taille !");
+		}
+		// Création de la matrice de résultat
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		// Addition des 2 matrices
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) + m.get(i, j));
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * ET logique de deux matrices<br>
+	 * R = THIS AND M<br>
+	 * r(i, j) = this(i, j) & m(i, j)
+	 * 
+	 * @param m Matrice dont on veut faire le ET logique avec THIS
+	 * @return Matrice de résultat R
+	 */
 	public Matrix and(Matrix m) {
 		// On vérifie que les 2 matrices ont la même taille
 		if (!this.hasSameSize(m)) {
@@ -339,201 +371,309 @@ public class Matrix {
 		}
 		return r;
 	}
-    
-    /**
-     * Symétrie verticale
-     * 
-     * @return Matrice symétrique de THIS par rapport à l'axe vertical
-     */
-    public Matrix flipVertical() {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-   
-    /**
-     * Insère une matrice dans la matrice courante à partir de la position spécifiée.<br>
-     *   R = THIS avec M insérée à la position (insertRow, insertCol)<br>
-     *   r(i, j) = this(i, j) sauf pour<br>
-     *   r(insertRow + x, insertCol + y) = mat(x, y)
-     *   
-     * @param insertRow Indice de la première ligne à laquelle il faut insérer la matrice M
-     * @param insertCol Indice de la première colonne à laquelle il faut insérer la matrice M
-     * @param m Matrice à insérer dans THIS
-     * @return  Matrice de résultat R
-     */
-    public Matrix insertIntoThis(int insertRow, int insertCol, Matrix m) {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * Multiplication de deux matrices<br>
-     *   R = THIS x MAT avec THIS:MxN MAT:NxP et R:MxP<br>
-     *   r(i, j) = somme pour k allant de 0 à N-1 de this(i, k) * mat(k, j)
-     *   
-     * @param mat matrice
-     * @return  matrice résultat
-     */
-    public Matrix mult(Matrix mat) {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * OU logique de deux matrices<br>
-     *   R = THIS OR M<br>
-     *   r(i, j) = this(i, j) | m(i, j)
-     *   
-     * @param m Matrice dont on veut faire le OU logique avec THIS
-     * @return  Matrice de résultat R
-     */
-	public Matrix or(Matrix m) {
-		// TODO
-        return null; // <- à modifier !!!
+
+	/**
+	 * Symétrie verticale
+	 * 
+	 * @return Matrice symétrique de THIS par rapport à l'axe vertical
+	 */
+	public Matrix flipVertical() {
+
+		// on crée la nouvelle matrice
+		Matrix flip = new Matrix(this.getNumRows(), this.getNumCols());
+
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+
+				flip.set(i, j, this.get(i, this.getNumCols() -1 - j));
+			}
+		}
+
+		return flip;
 	}
-    
-    /**
-     * Soustraction de deux matrices<br>
-     *   R = THIS - M<br>
-     *   r(i, j) = this(i, j) - m(i, j)
-     *   
-     * @param m Matrice à soustraire de THIS
-     * @return  Matrice de résultat R
-     */
-    public Matrix sub(Matrix m) {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * Renvoie la matrice transposée<br>
-     *   R = THIS'<br>
-     *   r(i, j) = this(j, i)
-     *   
-     * @return Matrice transposée
-     */
-    public Matrix transpose() {
-		// TODO
-        return null; // <- à modifier !!!
-    }
 
-    // ------------------------------------------------------------------------
-    //  Opérations matrices / scalaire
-    // ------------------------------------------------------------------------
+	/**
+	 * Insère une matrice dans la matrice courante à partir de la position
+	 * spécifiée.<br>
+	 * R = THIS avec M insérée à la position (insertRow, insertCol)<br>
+	 * r(i, j) = this(i, j) sauf pour<br>
+	 * r(insertRow + x, insertCol + y) = mat(x, y)
+	 * 
+	 * @param insertRow Indice de la première ligne à laquelle il faut insérer la
+	 *                  matrice M
+	 * @param insertCol Indice de la première colonne à laquelle il faut insérer la
+	 *                  matrice M
+	 * @param m         Matrice à insérer dans THIS
+	 * @return Matrice de résultat R
+	 */
+	public Matrix insertIntoThis(int insertRow, int insertCol, Matrix m) {
 
-    /**
-     * Addition d'un nombre à tous les éléments d'une matrice<br>
-     *   R = THIS + v<br>
-     *   r(i, j) = this(i, j) + v
-     *   
-     * @param v Valeur scalaire
-     * @return  Matrice de résultat
-     */
-    public Matrix add(int v) {
-        Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
-        for (int i = 0; i < this.getNumRows(); i++) {
-            for (int j = 0; j < this.getNumCols(); j++) {
-                r.set(i, j, this.get(i, j) + v);
-            }
-        }
-        return r;
-    }
-    
-    /**
-     * ET logique entre un nombre et chaque élément d'une matrice<br>
-     *   R = THIS & v<br>
-     *   r(i, j) = this(i, j) & v
-     *   
-     * @param v Valeur scalaire
-     * @return  Matrice de résultat
-     */
-    public Matrix and(int v) {
-		// TODO - Facultatif
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * NOT logique (complément) de chaque élément d'une matrice<br>
-     *   R = NOT(THIS)<br>
-     *   r(i, j) = ~this(i, j)
-     *   
-     * @return  Matrice de résultat
-     */
-    public Matrix not() {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * OU logique entre un nombre et chaque élément d'une matrice<br>
-     *   R = THIS | v<br>
-     *   r(i, j) = this(i, j) | v
-     *   
-     * @param v Valeur scalaire
-     * @return  Matrice de résultat
-     */
-    public Matrix or(int v) {
-		// TODO - Facultatif
-        return null; // <- à modifier !!!
-    }
-    
-    /**
-     * Décalage logique à gauche de chaque élément d'une matrice<br>
-     *   R = THIS << n <br>
-     *   r(i, j) = this(i, j) << n
-     *   
-     * @param n Valeur du décalage à gauche
-     * @return  Matrice de résultat
-     */
-    public Matrix shiftLeftLogical(int n) {
-		// TODO
-        return null; // <- à modifier !!!
-    }
-    
-    // ------------------------------------------------------------------------
-    //  Méthodes utilitaires
-    // ------------------------------------------------------------------------
-    
-    /**
-     * Imprime la matrice à l'écran avec un format par défaut
-     */
-    public void print() {
-        print(6);
-    }
+		if (insertRow + m.getNumRows() > this.getNumRows()) {
+			throw new IllegalArgumentException("La matrice à insérer a trop de lignes.");
+		}
 
-    /**
-     * Imprime la matrice à l'écran avec le nombre de chiffre demandés
-     *
-     * @param numDigits Nombre de chiffres
-     */
-    public void print(int numDigits) {
-        String format = "%" + numDigits + "d  ";
+		if (insertCol + m.getNumCols() > this.getNumCols()) {
+			throw new IllegalArgumentException("La matrice à insérer a trop de colonnes.");
+		}
+		// on créé une copie de this
+		Matrix r = new Matrix(this.data);
 
-        for (int i = 0; i < this.getNumRows(); i++) {
-            for (int j = 0; j < this.getNumCols(); j++) {
-                System.out.printf(format, this.get(i, j));
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+		for (int i = 0; i < m.getNumRows(); i++) {
+			for (int j = 0; j < m.getNumCols(); j++) {
 
-    /**
-     * Imprime la matrice à l'écran en considérant que chaque élément
-     * est un caractère ASCII (entre 32 et 126). Les autres valeurs
-     * sont remplacées par un caractère '.'
-     */
-    public void printAscii() {
-        for (int i = 0; i < this.getNumRows(); i++) {
-            for (int j = 0; j < this.getNumCols(); j++) {
-                if (this.get(i, j) >= 32 && this.get(i, j) < 127) {
-                    System.out.printf("%c", this.get(i, j));
-                } else {
-                    System.out.printf(".");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+				r.set(insertRow + i, insertCol + j, m.get(i, j));
+			}
+		}
+
+		return r;
+
+	}
+
+	/**
+	 * Multiplication de deux matrices<br>
+	 * R = THIS x MAT avec THIS:MxN MAT:NxP et R:MxP<br>
+	 * r(i, j) = somme pour k allant de 0 à N-1 de this(i, k) * mat(k, j)
+	 * 
+	 * @param mat matrice
+	 * @return matrice résultat
+	 */
+	public Matrix mult(Matrix mat) {
+
+		// condition -> nbre de colonne this == nbre ligne mat
+		if (this.getNumCols() != mat.getNumRows()) {
+			throw new IllegalArgumentException("les lignes et colonnes ne collent pas");
+		}
+		Matrix r = new Matrix(this.getNumRows(), mat.getNumCols());
+
+		// on parcour les lignes et colonnes
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < mat.getNumCols(); j++) {
+				// on boucle pour à chaque case obtenir un résultat sur base d'une somme
+				// allant de 0 à nbre de colonne date ou nbre de ligne de mat
+				int somme = 0;
+				for (int k = 0; k < mat.getNumRows(); k++) {
+
+					somme += this.get(i, k) * mat.get(k, j);
+
+				}
+				r.set(i, j, somme);
+
+			}
+		}
+
+		return r;
+	}
+
+	/**
+	 * OU logique de deux matrices<br>
+	 * R = THIS OR M<br>
+	 * r(i, j) = this(i, j) | m(i, j)
+	 * 
+	 * @param m Matrice dont on veut faire le OU logique avec THIS
+	 * @return Matrice de résultat R
+	 */
+	public Matrix or(Matrix m) {
+
+		// On vérifie que les 2 matrices ont la même taille
+		if (!this.hasSameSize(m)) {
+			throw new IllegalArgumentException("Les matrices doivent avoir la même taille !");
+		}
+
+		// Création de la matrice de résultat
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		// ET logique des 2 matrices
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) | m.get(i, j));
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * Soustraction de deux matrices<br>
+	 * R = THIS - M<br>
+	 * r(i, j) = this(i, j) - m(i, j)
+	 * 
+	 * @param m Matrice à soustraire de THIS
+	 * @return Matrice de résultat R
+	 */
+	public Matrix sub(Matrix m) {
+
+		// On vérifie que les 2 matrices ont la même taille
+		if (!this.hasSameSize(m)) {
+			throw new IllegalArgumentException("Les matrices doivent avoir la même taille !");
+		}
+
+		// Création de la matrice de résultat
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		// ET logique des 2 matrices
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) - m.get(i, j));
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * Renvoie la matrice transposée<br>
+	 * R = THIS'<br>
+	 * r(i, j) = this(j, i)
+	 * 
+	 * @return Matrice transposée
+	 */
+	public Matrix transpose() {
+
+		// Création de la matrice de résultat
+		Matrix r = new Matrix(this.getNumCols(), this.getNumRows());
+		// ET logique des 2 matrices
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(j, i, this.get(i, j));
+			}
+		}
+		return r;
+
+	}
+
+	// ------------------------------------------------------------------------
+	// Opérations matrices / scalaire
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Addition d'un nombre à tous les éléments d'une matrice<br>
+	 * R = THIS + v<br>
+	 * r(i, j) = this(i, j) + v
+	 * 
+	 * @param v Valeur scalaire
+	 * @return Matrice de résultat
+	 */
+	public Matrix add(int v) {
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) + v);
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * ET logique entre un nombre et chaque élément d'une matrice<br>
+	 * R = THIS & v<br>
+	 * r(i, j) = this(i, j) & v
+	 * 
+	 * @param v Valeur scalaire
+	 * @return Matrice de résultat
+	 */
+	public Matrix and(int v) {
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) & v);
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * NOT logique (complément) de chaque élément d'une matrice<br>
+	 * R = NOT(THIS)<br>
+	 * r(i, j) = ~this(i, j)
+	 * 
+	 * @return Matrice de résultat
+	 */
+	public Matrix not() {
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, ~this.get(i, j));
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * OU logique entre un nombre et chaque élément d'une matrice<br>
+	 * R = THIS | v<br>
+	 * r(i, j) = this(i, j) | v
+	 * 
+	 * @param v Valeur scalaire
+	 * @return Matrice de résultat
+	 */
+	public Matrix or(int v) {
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) | v);
+			}
+		}
+		return r;
+	}
+
+	/**
+	 * Décalage logique à gauche de chaque élément d'une matrice<br>
+	 * R = THIS << n <br>
+	 * r(i, j) = this(i, j) << n
+	 * 
+	 * @param n Valeur du décalage à gauche
+	 * @return Matrice de résultat
+	 */
+	public Matrix shiftLeftLogical(int n) {
+		Matrix r = new Matrix(this.getNumRows(), this.getNumCols());
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				r.set(i, j, this.get(i, j) << n);
+			}
+		}
+		return r;
+	}
+
+	// ------------------------------------------------------------------------
+	// Méthodes utilitaires
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Imprime la matrice à l'écran avec un format par défaut
+	 */
+	public void print() {
+		print(6);
+	}
+
+	/**
+	 * Imprime la matrice à l'écran avec le nombre de chiffre demandés
+	 *
+	 * @param numDigits Nombre de chiffres
+	 */
+	public void print(int numDigits) {
+		String format = "%" + numDigits + "d  ";
+
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				System.out.printf(format, this.get(i, j));
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	/**
+	 * Imprime la matrice à l'écran en considérant que chaque élément est un
+	 * caractère ASCII (entre 32 et 126). Les autres valeurs sont remplacées par un
+	 * caractère '.'
+	 */
+	public void printAscii() {
+		for (int i = 0; i < this.getNumRows(); i++) {
+			for (int j = 0; j < this.getNumCols(); j++) {
+				if (this.get(i, j) >= 32 && this.get(i, j) < 127) {
+					System.out.printf("%c", this.get(i, j));
+				} else {
+					System.out.printf(".");
+				}
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
 }
